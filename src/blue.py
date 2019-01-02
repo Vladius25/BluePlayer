@@ -39,7 +39,10 @@ class BlueConnector:
 
     def choose_dev(self, connected_devices):
         num = 0
-        if len(connected_devices) > 1:
+        if len(connected_devices) < 1:
+            print("No devices connected")
+            os._exit(0)
+        elif len(connected_devices) > 1:
             print("Choose device")
             for i, dev in enumerate(connected_devices):
                 print(str(i) + ") " + dev["props"]["Name"])
@@ -50,7 +53,7 @@ class BlueConnector:
             num = int(num)
             self.device = connected_devices[num]["device"]
         except (ValueError, IndexError):
-            os._exit()
+            os._exit(0)
 
     def init_handler(self):
         loop = GLib.MainLoop()
