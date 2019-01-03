@@ -62,6 +62,7 @@ class BlueConnector:
         self.props_iface = dbus.Interface(self.bus.get_object("org.bluez", path), "org.freedesktop.DBus.Properties")
         self.bus.get_object("org.bluez", path).connect_to_signal(
             "PropertiesChanged", self.handler)
+        self.handler()
         threading.Thread(target=loop.run).start()
 
     def handler(self, *args, **kwargs):
